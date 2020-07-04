@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+
 using static System.Console;
 
 using Dev01.Json;
@@ -14,8 +16,12 @@ namespace Dev01
             WriteLine("Hello World!");
             RD leadsRD = JsonConvert.DeserializeObject<RD>(File.ReadAllText("RDteste.json"));
 
-            WriteLine(leadsRD.leads[0].name);
-            WriteLine(leadsRD.leads[0].email);
+             using (var context = new LftmtesteContext()) {
+                context.Add(leadsRD);
+                context.SaveChanges();
+             }
+            
+
         }
     }
 }
